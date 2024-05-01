@@ -1,29 +1,37 @@
-#include <stdio.h>
-#include "sort.h"  // Assuming this contains the print_array prototype
-#include <stddef.h>  // For size_t
+#include "sort.h"
+/**
+ * selection_sort - sort an array of integers using selection sort
+ *
+ * @array: the array to order
+ * @size: the siz of the array to order
+ */
+void selection_sort(int *array, size_t size)
+{
+	unsigned long int i = 0, j = 0, smallest = 0;
+	int *swap = NULL;
 
-void selection_sort(int *array, size_t size) {
-    size_t i, j, smallest;
-    int temp;
-
-    if (!array || size < 2)  // Validate input
-        return;
-
-    for (i = 0; i < size - 1; i++) {  // Outer loop
-        smallest = i;  // Assume current position is the smallest
-
-        for (j = i + 1; j < size; j++) {  // Inner loop to find the smallest element
-            if (array[j] < array[smallest]) {
-                smallest = j;  // Update smallest index
-            }
-        }
-
-        if (smallest != i) {  // If smallest is not current index, swap them
-            temp = array[i];
-            array[i] = array[smallest];
-            array[smallest] = temp;
-
-            print_array(array, size);  // Print array after each swap
-        }
-    }
+	if (!array || size < 2)
+		return;
+	for (; i < size; i++)
+	{
+		smallest = i; /* set current as minimum */
+		swap =  malloc(sizeof(int) * 1);
+		*swap = *(array + i);
+		for (j = i + 1; j < size; j++)
+		{
+			if (*(array + j) < *(array + smallest))
+			{
+				smallest = j; /* update minimum index*/
+			}
+		}
+		if (i < smallest)
+		{
+		*(array + i) = *(array + smallest);
+		*(array + smallest) = *swap;
+		free(swap);
+		print_array(array, size);
+		}
+		else
+			free(swap);
+	}
 }
